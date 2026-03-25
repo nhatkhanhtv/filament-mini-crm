@@ -45,6 +45,7 @@ class ListCustomers extends ListRecords
                     $query->where('status', $customerStatus->value);
                 })
                 ->badge($counts[$customerStatus->value] ?? 0);
+                // ->deferBadge();
         }
         // dd(CustomerStatus::cases());
         return $tabArray;

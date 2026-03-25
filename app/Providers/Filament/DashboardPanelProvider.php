@@ -33,6 +33,7 @@ class DashboardPanelProvider extends PanelProvider
             ->login()
             ->colors([
                 'primary' => Color::Blue,
+                'info' => Color::Cyan
                 // 'gray' => Color::Cyan
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')

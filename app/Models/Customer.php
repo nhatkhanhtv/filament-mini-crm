@@ -17,7 +17,8 @@ class Customer extends Model
         'phone',
         'address',
         'status',
-        'industry_id'
+        'industry_id',
+        'description'
     ];
 
     public function industry() : BelongsTo

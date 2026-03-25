@@ -11,5 +11,12 @@ return [
         'delete' => 'Xóa',
         'create' => 'Thêm mới'
         
-    ]
+    ],
+    'filter' => [
+        'created_from' => 'Tạo từ ngày',
+        'created_until' => 'Tạo đến ngày'
+    ],
+    'created_at' => 'Ngày tạo',
+    'updated_at' => 'Ngày cập nhật'
+    
 ];

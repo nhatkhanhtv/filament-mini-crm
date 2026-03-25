@@ -21,13 +21,10 @@ class CustomerFactory extends Factory
     {
         $phone = $this->faker->phoneNumber();
         return [
-            'company_name'=>$this->faker->company(),
             'full_name'=>$this->faker->name(),
-            'birthday'=>$this->faker->dateTimeInInterval("-20 years"),
             'email'=>$this->faker->email(),
             'phone'=>$phone,
             'address'=>$this->faker->address(),
-            'tax_code'=>$phone,
             'status'=>$this->faker->randomElement(CustomerStatus::cases()),
             'industry_id'=> Industry::query()->inRandomOrder()->value('id')
         ];

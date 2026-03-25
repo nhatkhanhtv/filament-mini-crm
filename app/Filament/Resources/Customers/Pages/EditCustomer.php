@@ -14,7 +14,7 @@ class EditCustomer extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
+            // ViewAction::make(),
             // DeleteAction::make(),
         ];
     }
@@ -22,9 +22,9 @@ class EditCustomer extends EditRecord
     public function getBreadcrumbs(): array
     {
         return [
-            "#" => __('general.system'),
             CustomerResource::getUrl('index')=> __('customer.model.plural'),
-            __('general.page.edit').": ".$this->record->full_name
+            CustomerResource::getUrl('view',['record' => $this->record]) => $this->record->full_name,
+            __('general.page.edit')
         ];
     }
 }

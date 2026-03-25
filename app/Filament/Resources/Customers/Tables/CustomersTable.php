@@ -9,6 +9,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\DatePicker;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\TextSize;
 use Filament\Support\Enums\Width;
@@ -16,9 +17,12 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class CustomersTable
 {
@@ -39,7 +43,10 @@ class CustomersTable
                     ->searchable(), 
                 TextColumn::make('email')
                     ->label(__('customer.email'))
-                    ->searchable(),
+                    ->searchable()
+                    ->copyable()
+                    ->copyMessage('Copied')
+                    ->copyMessageDuration(1500),
                 TextColumn::make('phone')
                     ->label(__('customer.phone'))
                     ->searchable(),
@@ -70,10 +77,30 @@ class CustomersTable
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->options(CustomerStatus::class),
+                    ->label(__('customer.status'))
+                    ->options(CustomerStatus::class)
+                    ->multiple(),
                 SelectFilter::make('industry_id')
-                    ->relationship('industry', 'name')
-                  
+                    ->label(__('customer.industry_id'))
+                    ->relationship('industry', 'name'),
+                Filter::make('created_at')
+                    ->schema([
+                        DatePicker::make('created_from')
+                            ->label(__('general.filter.created_from')),
+                        DatePicker::make('created_until')
+                            ->label(__('general.filter.created_until')),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })  
             ])->filtersTriggerAction(
                 fn(Action $action) => $action->slideOver()
             )
