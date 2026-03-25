@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement();
-            $table->text('company_name')->nullable();
             $table->text('full_name');
             $table->date('birthday')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
-            $table->string('tax_code')->unique();
             $table->unsignedTinyInteger('status')->default(0);
             
 

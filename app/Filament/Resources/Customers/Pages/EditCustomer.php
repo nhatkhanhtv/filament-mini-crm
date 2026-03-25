@@ -15,7 +15,16 @@ class EditCustomer extends EditRecord
     {
         return [
             ViewAction::make(),
-            DeleteAction::make(),
+            // DeleteAction::make(),
+        ];
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        return [
+            "#" => __('general.system'),
+            CustomerResource::getUrl('index')=> __('customer.model.plural'),
+            __('general.page.edit').": ".$this->record->full_name
         ];
     }
 }

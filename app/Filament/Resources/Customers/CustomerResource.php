@@ -20,7 +20,7 @@ class CustomerResource extends Resource
 {
     protected static ?string $model = Customer::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
 
     protected static ?string $recordTitleAttribute = 'full_name';
 
@@ -55,4 +55,17 @@ class CustomerResource extends Resource
             'edit' => EditCustomer::route('/{record}/edit'),
         ];
     }
+
+    public static function getModelLabel() : string {
+        return __('customer.model.label');
+    }
+
+    public static function getPluralModelLabel() : string {
+        return __('customer.model.plural');
+    }
+
+    public static function getNavigationLabel() : string {
+        return __('customer.model.label');
+    }
+
 }

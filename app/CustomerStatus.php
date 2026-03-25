@@ -5,7 +5,7 @@ namespace App;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
-enum CustomerStatus : string implements HasLabel, HasColor
+enum CustomerStatus : int implements HasLabel, HasColor
 {
     case New = 0;
     case Meeting = 1;

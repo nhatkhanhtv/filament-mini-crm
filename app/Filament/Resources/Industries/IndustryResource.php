@@ -13,12 +13,14 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class IndustryResource extends Resource
 {
     protected static ?string $model = Industry::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::ListBullet;
+
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -43,8 +45,28 @@ class IndustryResource extends Resource
     {
         return [
             'index' => ListIndustries::route('/'),
-            'create' => CreateIndustry::route('/create'),
-            'edit' => EditIndustry::route('/{record}/edit'),
+            // 'create' => CreateIndustry::route('/create'),
+            // 'edit' => EditIndustry::route('/{record}/edit'),
         ];
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('industry.model.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('industry.model.plural');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('industry.model.label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('general.system');
     }
 }

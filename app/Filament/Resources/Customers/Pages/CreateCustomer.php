@@ -8,4 +8,13 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateCustomer extends CreateRecord
 {
     protected static string $resource = CustomerResource::class;
+
+    public function getBreadcrumbs(): array
+    {
+        return [
+            CustomerResource::getUrl('index')=> __('customer.model.plural'),
+            __('general.page.create')
+        ];
+    }
+
 }

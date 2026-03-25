@@ -15,13 +15,10 @@ class CustomerForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
-            ->components([
-                Textarea::make('company_name')
-                    ->columnSpanFull(),
+            ->components([                
                 Textarea::make('full_name')
                     ->required()
                     ->columnSpanFull(),
-                DatePicker::make('birthday'),
                 TextInput::make('email')
                     ->label('Email address')
                     ->email(),
@@ -29,8 +26,7 @@ class CustomerForm
                     ->tel(),
                 Textarea::make('address')
                     ->columnSpanFull(),
-                TextInput::make('tax_code')
-                    ->required(),
+                
                 Select::make('status')
                     ->options(CustomerStatus::class)
                     ->required()

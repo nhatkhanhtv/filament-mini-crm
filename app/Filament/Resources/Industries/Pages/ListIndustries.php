@@ -10,10 +10,20 @@ class ListIndustries extends ListRecords
 {
     protected static string $resource = IndustryResource::class;
 
+    public function getBreadcrumbs(): array
+    {
+        return [
+            "#" => __('general.system'),
+            __('industry.model.plural')
+        ];
+    }
+
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()->slideOver(),
         ];
     }
+
+    
 }

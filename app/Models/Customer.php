@@ -3,19 +3,19 @@
 namespace App\Models;
 
 use App\CustomerStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Customer extends Model
 {
+    use HasFactory;
+
     public $fillable = [
-        'company_name',
         'full_name',
-        'birthday',
         'email',
         'phone',
         'address',
-        'tax_code',
         'status',
         'industry_id'
     ];
@@ -30,4 +30,6 @@ class Customer extends Model
             'status' => CustomerStatus::class
         ];
     }
+
+    
 }
