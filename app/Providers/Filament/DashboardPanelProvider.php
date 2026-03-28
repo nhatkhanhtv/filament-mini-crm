@@ -28,24 +28,29 @@ class DashboardPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('dashboard')
-            ->path('/')
+            ->id("dashboard")
+            ->path("/")
+            ->viteTheme("resources/css/filament/dashboard/theme.css")
             ->login()
             ->colors([
-                'primary' => Color::Blue,
-                'info' => Color::Cyan
+                "primary" => Color::Blue,
+                "info" => Color::Cyan,
                 // 'gray' => Color::Cyan
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
-            ->pages([
-                Dashboard::class,
-            ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
-            ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
-            ])
+            ->discoverResources(
+                in: app_path("Filament/Resources"),
+                for: "App\Filament\Resources",
+            )
+            ->discoverPages(
+                in: app_path("Filament/Pages"),
+                for: "App\Filament\Pages",
+            )
+            ->pages([Dashboard::class])
+            ->discoverWidgets(
+                in: app_path("Filament/Widgets"),
+                for: "App\Filament\Widgets",
+            )
+            ->widgets([AccountWidget::class, FilamentInfoWidget::class])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -57,22 +62,19 @@ class DashboardPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->authMiddleware([
-                Authenticate::class,
-            ])
-            ->favicon('/crm.png')
-            
-            ->resourceCreatePageRedirect('index')
-            ->resourceEditPageRedirect('index')
+            ->authMiddleware([Authenticate::class])
+            ->favicon("/crm.png")
+
+            ->resourceCreatePageRedirect("index")
+            ->resourceEditPageRedirect("index")
             ->maxContentWidth(Width::Full)
             ->sidebarWidth("250px")
             ->sidebarCollapsibleOnDesktop(true)
-            // ->navigationGroups([
-            //     NavigationGroup::make()
-            //          ->label(fn() : string => __('general.system'))
-            //          ->icon(Heroicon::Cog8Tooth)
-            //         ])
-            ;
-
+            ->viteTheme("resources/css/filament/dashboard/theme.css");
+        // ->navigationGroups([
+        //     NavigationGroup::make()
+        //          ->label(fn() : string => __('general.system'))
+        //          ->icon(Heroicon::Cog8Tooth)
+        //         ])
     }
 }

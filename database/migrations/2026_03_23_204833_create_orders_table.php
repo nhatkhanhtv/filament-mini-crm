@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('customer_id');
-            $table->string('order_code');
+            $table->string('order_code')->nullable();
             $table->date('ordered_at');
             $table->unsignedTinyInteger('status')->default(0);
             $table->decimal('subtotal',12,0)->default(0);
