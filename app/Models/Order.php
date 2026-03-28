@@ -41,16 +41,16 @@ class Order extends Model
             $order->status = OrderStatus::new->value;
         });
         self::created(function (Order $order) {
-            $number = (string) $order->id;
-            if (strlen($number) < 5) {
-                $addZero = "";
-                for ($i = $number; $i <= 5; $i++) {
-                    $addZero .= "0";
-                }
-                $order->order_code = "DH" . $addZero . $order->id;
-            } else {
+        //     $number = (string) $order->id;
+        //     if (count($number) < 5) {
+        //         $addZero = "";
+        //         for ($i = $number; $i <= 5; $i++) {
+        //             $addZero .= "0";
+        //         }
+        //         $order->order_code = "DH" . $addZero . $order->id;
+        //     } else {
                 $order->order_code = "DH" . $order->id;
-            }
+            // }
             $order->saveQuietly();
         });
     }

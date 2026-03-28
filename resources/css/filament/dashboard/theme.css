@@ -4,3 +4,12 @@
 
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
+
+
+.fi-fo-table-repeater-add .fi-ac-btn-action{
+    @apply bg-primary-600 text-white hover:bg-primary-700;
+}
+
+.fi-fo-table-repeater table thead th{
+    @apply bg-primary-500 text-white hover:bg-primary-600;
+}

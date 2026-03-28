@@ -2,6 +2,7 @@
 return [
     "system" => "Hệ thống",
     "button" => [
+        "add" => "Thêm",
         "view" => "Xem chi tiết",
         "edit" => "Chỉnh sửa",
         "delete" => "Xóa",

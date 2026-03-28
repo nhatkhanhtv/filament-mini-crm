@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Orders\Schemas;
 
+use App\Models\Customer;
 use App\Models\Product;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
@@ -15,6 +16,7 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Alignment;
+use Illuminate\Support\Onceable;
 
 class OrderForm
 {
@@ -28,20 +30,37 @@ class OrderForm
                     "lg" => 3,
                 ])
                 ->schema([
-                    Select::make("customer_id")
-                        ->required()
-                        ->searchable()
-                        ->preload()
-                        ->relationship("customer", "full_name")
-                        ->label(__("order.customer"))
+                    Group::make()
+                        ->columns([
+                            "default" => 1,
+                            "md" => 2,
+                        ])
+                        ->schema([
+                            Select::make("customer_id")
+                                ->relationship("customer", "full_name")
+                                ->searchable()
+                                ->preload() 
+                                ->required()
+                                ->label(__("order.customer"))->columnSpan(2)
+                                ->live(onBlur: true)
+                                ->afterStateUpdated(function ($state, callable $set) {
+                                    $customer = Customer::find($state);
+                                    $set("customer.email", $customer?->email);
+                                    $set("customer.phone", $customer?->phone);
+                                }),
+                            TextInput::make("customer.email")->readOnly()->columnSpan(1),
+                            TextInput::make("customer.phone")->readOnly()->columnSpan(1),
+                        ])
                         ->columnSpan(2),
-                    TextInput::make("customer.email")->readOnly(),
-                    TextInput::make("customer.phone")->readOnly(),
-                    DatePicker::make("ordered_at")
-                        ->label(__("order.ordered_at"))
-                        ->default(now())
-                        ->date("d/m/Y")
-                        ->required(),
+                        Group::make()->schema([
+                            DatePicker::make("ordered_at")
+                                ->label(__("order.ordered_at"))
+                                ->default(now())
+                                ->date("d/m/Y")
+                                ->required(),
+                        ])
+                   
+                        ->columnSpan(1)
                 ]),
 
             Section::make(__("order.items"))

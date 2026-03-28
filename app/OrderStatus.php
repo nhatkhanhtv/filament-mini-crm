@@ -10,13 +10,15 @@ enum OrderStatus : int implements HasLabel, HasColor
     case new = 0;
     case processing = 1;
     case completed = 2;
+    case cancelled = 3;
 
     public function getLabel(): string
     {
         return match ($this) {
-            self::new => __('order_status.new'),
-            self::processing => __('order_status.processing'),
-            self::completed => __('order_status.completed'),
+            self::new => __('order.order_status.new'),
+            self::processing => __('order.order_status.processing'),
+            self::completed => __('order.order_status.completed'),
+            self::cancelled => __('order.order_status.cancelled'),
         };
     }
 
@@ -26,6 +28,7 @@ enum OrderStatus : int implements HasLabel, HasColor
             self::new => 'info',
             self::processing => 'warning',
             self::completed => 'success',
+            self::cancelled => 'danger',
         };
     }
 

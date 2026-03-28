@@ -34,7 +34,6 @@ class OrderItemRepeater
                     ->required()
                     ->live(onBlur: true, debounce: "1s")
                     ->afterStateUpdated(function ($state, callable $set) {
-                        // Lấy thông tin sản phẩm từ state
                         $product = Product::find($state);
 
                         $set(
@@ -84,20 +83,7 @@ class OrderItemRepeater
                     ->extraInputAttributes([
                         "class" => "text-right",
                     ]),
-                // ->reactive()
-
-                // ->afterStateHydrated(
-                //     fn($get, $set) => static::updateCalculateRow(
-                //         $get,
-                //         $set,
-                //     ),
-                // )
-                // ->afterStateUpdated(
-                //     fn($get, $set) => static::updateCalculateRow(
-                //         $get,
-                //         $set,
-                //     ),
-                // ),
+                
             ])
             ->live(onBlur: true)
 
@@ -108,8 +94,10 @@ class OrderItemRepeater
                 $set("subtotal", $total, shouldCallUpdatedHooks: true);
             })
             ->itemNumbers()
-
-            ->defaultItems(1)
+            
+            ->label(__("order.items.label"))
+            ->addActionLabel(__("general.button.add"))
+            
             ->addActionAlignment(Alignment::Start)
             ->compact()
             ->reorderable()
