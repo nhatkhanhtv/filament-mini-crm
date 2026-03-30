@@ -2,8 +2,15 @@
 
 namespace App\Filament\Resources\Orders\Schemas;
 
+use App\OrderStatus;
+use Filament\Forms\Components\Repeater\TableColumn;
+use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\FontWeight;
+use Filament\Tables\Columns\TextColumn;
 
 class OrderInfolist
 {
@@ -11,27 +18,121 @@ class OrderInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('customer_id')
-                    ->numeric(),
-                TextEntry::make('order_code'),
-                TextEntry::make('ordered_at')
-                    ->date(),
-                TextEntry::make('status')
-                    ->numeric(),
-                TextEntry::make('subtotal')
-                    ->numeric(),
-                TextEntry::make('discount_total')
-                    ->numeric(),
-                TextEntry::make('tax_total')
-                    ->numeric(),
-                TextEntry::make('total_price')
-                    ->money(),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
+                Section::make(__('customer.view.label'))
+                    ->description(__('customer.view.description'))
+                    ->columns([
+                        'md'=>2
+                    ])
+                    ->schema([
+                        TextEntry::make('customer.full_name')
+                            ->label(__('customer.full_name'))
+                            ->columnSpanFull(),
+                        TextEntry::make('customer.phone')
+                            ->label(__('customer.full_name')),
+                        TextEntry::make('customer.email')
+                            ->label(__('customer.full_name')),
+                        TextEntry::make('customer.address')
+                            ->label(__('customer.full_name'))
+                            ->columnSpanFull(),                       
+                        
+                    ]),
+                Section::make(__('order.view.label'))
+                    ->description(__('order.view.description'))
+                    ->columns([
+                        'md'=>2
+                    ])
+                    ->schema([
+                        TextEntry::make('order_code')
+                            ->label(__('order.order_code')),
+                        TextEntry::make('status')
+                            ->label(__('order.status'))
+                                ->badge(OrderStatus::class),
+                        TextEntry::make('ordered_at')
+                            ->label(__('order.ordered_at'))
+                            ->date('d/m/Y')
+                            ->columnSpanFull(),
+                        TextEntry::make('created_at')
+                            ->dateTime('H:i d/m/Y')
+                            ->placeholder('-')
+                            ->label(__('general.created_at')),
+                        TextEntry::make('updated_at')
+                            ->dateTime('H:i d/m/Y')
+                            ->placeholder('-')
+                            ->label(__('general.updated_at')),
+                    ]),
+                RepeatableEntry::make('orderItems')                    
+                    ->table([
+                        TableColumn::make('#'),
+                        TableColumn::make(__('product.sku')),
+                        TableColumn::make(__('product.name')),
+                        TableColumn::make(__('order.items.unit_price')),
+                        TableColumn::make(__('order.items.quantity')),
+                        TableColumn::make(__('order.items.subtotal')),
+                    ])
+                    ->schema([
+                        TextEntry::make('#')
+                            ->getStateUsing(fn($record)=>$record->id),
+                        TextEntry::make('product.sku'),
+                        TextEntry::make('product.name'),
+                        TextEntry::make('unit_price')
+                            ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
+                        ,
+                        TextEntry::make('quantity')
+                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
+                        ,
+                        TextEntry::make('subtotal')
+                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
+
+                        
+                            
+                    ])
+                    ->columnSpanFull(),
+                Section::make('')                    
+                        ->schema([
+                            Group::make()
+                                ->schema([
+                                    TextEntry::make('subtotal')
+                                        ->numeric()
+                                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
+                                        ->inlineLabel()
+                                        ->weight(FontWeight::Bold)
+                                        ->suffix(__('general.currency_unit'))
+                                       ,
+                                    TextEntry::make('discount_total')
+                                        ->numeric()
+                                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
+                                        ->inlineLabel()
+                                        ->weight(FontWeight::Bold)
+                                        ->suffix(__('general.currency_unit')),
+                                    TextEntry::make('tax_total')
+                                        ->numeric()
+                                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
+                                        ->inlineLabel()
+                                        ->weight(FontWeight::Bold)
+                                        ->suffix(__('general.currency_unit')),
+                                    TextEntry::make('total_price')
+                                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
+                                        ->inlineLabel()
+                                        ->weight(FontWeight::Bold)
+                                        ->suffix(__('general.currency_unit')),
+                                ])
+                                ->extraAttributes([
+                                    'class'=>"text-right"
+                                ])
+                                ->columnStart(3)
+                            
+                        ])
+                        ->columns([
+                            'md'=>2,
+                            'lg'=>3
+                        ])
+                        ->columnSpanFull()
+
+                
+                
+               
+                
+                
             ]);
     }
 }

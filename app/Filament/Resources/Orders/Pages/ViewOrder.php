@@ -16,4 +16,9 @@ class ViewOrder extends ViewRecord
             EditAction::make(),
         ];
     }
+
+    protected function getAllRelationManagers(): array
+    {
+        return [];
+    }
 }

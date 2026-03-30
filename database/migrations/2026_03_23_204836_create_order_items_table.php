@@ -18,8 +18,7 @@ return new class extends Migration {
             $table->unsignedInteger("product_id");
             $table->unsignedSmallInteger("quantity")->default(1);
             $table->decimal("unit_price", 12, 0)->default(0);
-            $table->decimal("discount_amount", 10, 2)->default(0);
-            $table->decimal("tax_amount", 10, 2)->default(0);
+            
             $table->decimal("subtotal", 12, 0)->default(0);
 
             $table

@@ -25,6 +25,8 @@ class OrderResource extends Resource
 
     protected static ?string $recordTitleAttribute = "order_code";
 
+
+
     public static function form(Schema $schema): Schema
     {
         return OrderForm::configure($schema);
@@ -54,4 +56,10 @@ class OrderResource extends Resource
             "edit" => EditOrder::route("/{record}/edit"),
         ];
     }
+
+    public static function getModelLabel() :string { 
+        return __("order.model.label");
+    }
+
+
 }

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Orders\Pages;
 use App\Filament\Resources\Orders\OrderResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Icons\Heroicon;
 
 class ListOrders extends ListRecords
 {
@@ -12,6 +13,15 @@ class ListOrders extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [CreateAction::make()];
+        return [
+            CreateAction::make()
+                        ->label('Thêm Đơn hàng')
+                        ->icon(Heroicon::Plus)
+        ];
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
     }
 }
