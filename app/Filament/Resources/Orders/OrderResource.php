@@ -21,11 +21,9 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::CurrencyDollar;
 
     protected static ?string $recordTitleAttribute = "order_code";
-
-
 
     public static function form(Schema $schema): Schema
     {
@@ -57,9 +55,8 @@ class OrderResource extends Resource
         ];
     }
 
-    public static function getModelLabel() :string { 
+    public static function getModelLabel(): string
+    {
         return __("order.model.label");
     }
-
-
 }
