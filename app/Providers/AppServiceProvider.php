@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Filament\Infolists\Components\TextEntry;
+use Filament\Support\Enums\FontWeight;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        TextEntry::macro('formatCurrency',function() {
+            return $this
+                ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ");
+        });
+        TextEntry::macro('formatOrderCurrency',function() {
+            return $this
+                ->formatCurrency()
+                ->inlineLabel()
+                ->weight(FontWeight::Bold)
+                ->suffix(__('general.currency_unit'));
+        });
     }
 }

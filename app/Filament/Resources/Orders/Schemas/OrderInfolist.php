@@ -75,16 +75,11 @@ class OrderInfolist
                         TextEntry::make('product.sku'),
                         TextEntry::make('product.name'),
                         TextEntry::make('unit_price')
-                            ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
-                        ,
+                            ->formatCurrency(),
                         TextEntry::make('quantity')
-                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
-                        ,
+                            ->formatCurrency(),
                         TextEntry::make('subtotal')
-                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
-
-                        
-                            
+                            ->formatCurrency()   
                     ])
                     ->columnSpanFull(),
                 Section::make('')                    
@@ -92,29 +87,17 @@ class OrderInfolist
                             Group::make()
                                 ->schema([
                                     TextEntry::make('subtotal')
-                                        ->numeric()
-                                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
-                                        ->inlineLabel()
-                                        ->weight(FontWeight::Bold)
-                                        ->suffix(__('general.currency_unit'))
-                                       ,
+                                        ->label(__('order.subtotal'))
+                                        ->formatOrderCurrency(),
                                     TextEntry::make('discount_total')
-                                        ->numeric()
-                                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
-                                        ->inlineLabel()
-                                        ->weight(FontWeight::Bold)
-                                        ->suffix(__('general.currency_unit')),
+                                        ->label(__('order.discount_total'))
+                                        ->formatOrderCurrency(),
                                     TextEntry::make('tax_total')
-                                        ->numeric()
-                                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
-                                        ->inlineLabel()
-                                        ->weight(FontWeight::Bold)
-                                        ->suffix(__('general.currency_unit')),
+                                        ->label(__('order.tax_total'))
+                                        ->formatOrderCurrency(),
                                     TextEntry::make('total_price')
-                                        ->formatStateUsing(fn($state) => number_format($state,0,'.',',')." ")
-                                        ->inlineLabel()
-                                        ->weight(FontWeight::Bold)
-                                        ->suffix(__('general.currency_unit')),
+                                        ->label(__('order.total_price'))
+                                        ->formatOrderCurrency()
                                 ])
                                 ->extraAttributes([
                                     'class'=>"text-right"
@@ -126,13 +109,7 @@ class OrderInfolist
                             'md'=>2,
                             'lg'=>3
                         ])
-                        ->columnSpanFull()
-
-                
-                
-               
-                
-                
+                        ->columnSpanFull()                
             ]);
     }
 }

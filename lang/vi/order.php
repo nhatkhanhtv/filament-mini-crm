@@ -8,6 +8,7 @@ return [
         "label" => "Thông tin đơn hàng",
         "description" => "Thông tin chính của đơn hàng",
     ],
+    "order_code" => "Mã đơn hàng",
     "information" => "Thông tin đơn hàng",
     "customer" => "Khách hàng",
     "ordered_at" => "Ngày đặt hàng",
@@ -17,8 +18,8 @@ return [
     "total_price" => "Tổng cộng",
     "status" => "Trạng thái đơn hàng",
     "order_status" => [
-        "new" => "Mới",
-        "processing" => "Đang xử lý",
+        "new" => "Chưa duyệt",
+        "processing" => "Đã duyệt",
         "completed" => "Hoàn thành",
         "cancelled" => "Đã hủy",
     ],
@@ -36,4 +37,7 @@ return [
         "tax_percent" => "Thuế (%)",
         "subtotal" => "Thành tiền",
     ],
+    "button" => [
+        "approve" => "Duyệt đơn"
+    ]
 ];
