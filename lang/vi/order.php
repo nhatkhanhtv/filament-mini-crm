@@ -38,6 +38,8 @@ return [
         "subtotal" => "Thành tiền",
     ],
     "button" => [
-        "approve" => "Duyệt đơn"
+        "approve" => "Duyệt đơn",
+        "complete" => "Hoàn thành",
+        "cancel" => "Huỷ đơn"
     ]
 ];

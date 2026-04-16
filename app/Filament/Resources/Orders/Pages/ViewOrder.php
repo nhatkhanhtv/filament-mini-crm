@@ -28,9 +28,30 @@ class ViewOrder extends ViewRecord
                 ->action(function($record) {
                     $record->update([
                         'status' => OrderStatus::processing
-                    ]);
-                    
+                    ]);                    
                 })
+                ->visible(fn($record) => in_array($record->status,[OrderStatus::new])),
+            Action::make('complete')
+                ->label(__('order.button.complete'))
+                ->requiresConfirmation()
+                ->icon(Heroicon::DocumentCurrencyDollar)
+                ->color(Color::Green)
+                ->action(function($record) {
+                    $record->update([
+                        'status' => OrderStatus::completed
+                    ]);                    
+                })
+                ->visible(fn($record) => in_array($record->status,[OrderStatus::processing])),
+            Action::make('cancel')
+                ->label(__('order.button.cancel'))
+                ->requiresConfirmation()
+                ->icon(Heroicon::Trash)
+                ->color(Color::Red)
+                ->action(function($record) {
+                    $record->update([
+                        'status' => OrderStatus::cancelled
+                    ]);                    
+                }),
         ];
     }
 
